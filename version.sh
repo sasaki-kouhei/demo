@@ -42,6 +42,43 @@ findGitDirectory(){
   done
 }
 
+getTagMode() {
+  line=$(git log --pretty=oneline --abbrev-commit --merges -n 1)
+  param=$(echo $line | grep "tag")
+  if [ "$param" != "" ];
+  then
+    exit 0
+  fi
+
+  param=$(echo $line | grep "feature")
+  if [ "$param" != "" ];
+  then
+    echo "minor"
+    return
+  fi
+
+  param=$(echo $line | grep "develop")
+  if [ "$param" != "" ];
+  then
+    echo "minor"
+    return
+  fi
+
+  param=$(echo $line | grep "hotfix")
+  if [ "$param" != "hotfix" ];
+  then
+    echo "hotfix"
+    return
+  fi
+  
+  echo "hotfix"
+}
+
+getChangeLog(){
+  log=$(git log "${1}".."${2}" | git log  | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
+  echo $log
+}
+
 findGitDirectory
 
 if [ ! -e ".git" ]; then
@@ -49,7 +86,8 @@ if [ ! -e ".git" ]; then
   exit 1
 fi
 
-MODE="" #
+PREV=$(git tag -l  | tail -1)
+MODE=$(getTagMode)
 MESSAGE="" # commit message.
 while getopts t:m:h OPT
 do
@@ -96,7 +134,7 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-
+sed -i "$(getChangeLog)" CHANGELOG.md
 gitAdd "version.txt"
 gitCommit "$MESSAGE"
 gitTag "$(cat ./version.txt)" "$MESSAGE"
