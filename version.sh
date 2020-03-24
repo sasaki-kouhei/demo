@@ -134,7 +134,7 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-getChangeLog
+getChangeLog "$PREV" "master"
 sed -i "$log" CHANGELOG.md
 gitAdd "version.txt"
 gitCommit "$MESSAGE"
