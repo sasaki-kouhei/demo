@@ -75,7 +75,7 @@ getTagMode() {
 }
 
 getChangeLog(){
-  log=$(git log "${1}".."${2}" | git log  | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
+  log=$(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
   echo $log
 }
 
@@ -134,7 +134,7 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-getChangeLog "$PREV" "master"
+getChangeLog "tags/$PREV" "origin/master"
 sed -e "1i $log" CHANGELOG.md
 #gitAdd "version.txt"
 #gitCommit "$MESSAGE"
