@@ -76,7 +76,9 @@ getTagMode() {
 
 getChangeLog(){
   log=$(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
-  echo -e $log
+  current_log=$(cat ./CHANGELOG.md)
+  echo -e "$log"
+  echo -e "$current_log"
 }
 
 findGitDirectory
@@ -135,7 +137,6 @@ fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
 getChangeLog "tags/$PREV" "origin/master"
-gsed -i "1i $log" CHANGELOG.md
 #gitAdd "version.txt"
 #gitCommit "$MESSAGE"
 #gitTag "$(cat ./version.txt)" "$MESSAGE"
