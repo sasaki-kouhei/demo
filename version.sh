@@ -75,9 +75,8 @@ getTagMode() {
 }
 
 getChangeLog(){
-  git log --pretty=oneline --abbrev-commit --merges -n 1 | awk '{print $4}' | sed 's/'\''//g')
   log=$(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
-  echo -n $log
+  echo $log
 }
 
 findGitDirectory
