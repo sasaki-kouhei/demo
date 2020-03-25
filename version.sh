@@ -135,7 +135,7 @@ fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
 getChangeLog "tags/$PREV" "origin/master"
-sed -e "1i $log" CHANGELOG.md
+gsed -e "1i $log" CHANGELOG.md
 #gitAdd "version.txt"
 #gitCommit "$MESSAGE"
 #gitTag "$(cat ./version.txt)" "$MESSAGE"
