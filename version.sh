@@ -1,4 +1,4 @@
-  #!/bin/bash
+#!/bin/bash
 
 showUsage(){
   echo "
@@ -77,9 +77,12 @@ getTagMode() {
 createChangeLog(){
   log=$(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
   current_log=$(cat ./CHANGELOG.md)
-  echo -e "v$(cat ./version.txt) $(date '+%Y-%m-%d')"
-  echo -e "$log"
-  echo -e "$current_log"
+  echo -e "## v$(cat ./version.txt) $(date '+%Y-%m-%d')"
+  echo -e "
+  $log
+
+  $current_log
+  "
 }
 
 findGitDirectory
@@ -137,7 +140,11 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-createChangeLog "tags/$PREV" "origin/master" > ./CHANGELOG.md
-#gitAdd "version.txt"
-#gitCommit "$MESSAGE"
-#gitTag "$(cat ./version.txt)" "$MESSAGE"
+echo "tags/$PREV" "origin/master"
+log=$(createChangeLog "tags/$PREV" "origin/master")
+echo -n "$log" > ./CHANGELOG.md
+gitAdd "version.txt" "./CHANGELOG.md"
+gitCommit "v$(cat ./version.txt) release!"
+gitTag "$(cat ./version.txt)" "$MESSAGE"
+
+
