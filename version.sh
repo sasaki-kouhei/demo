@@ -1,4 +1,4 @@
-#!/bin/bash
+  #!/bin/bash
 
 showUsage(){
   echo "
@@ -137,7 +137,7 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-createChangeLog "tags/$PREV" "origin/master" > ./CHANGELOG.md
+createChangeLog "tags/$PREV" "origin/master" 
 #gitAdd "version.txt"
 #gitCommit "$MESSAGE"
 #gitTag "$(cat ./version.txt)" "$MESSAGE"
