@@ -74,8 +74,12 @@ getTagMode() {
   echo "hotfix"
 }
 
-createChangeLog(){
-  log=$(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
+getChangeLog(){
+  echo $(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
+}
+
+createChangeLogFile(){
+  log=$(getChangeLog "${1}" "${2}")
   current_log=$(cat ./CHANGELOG.md)
   echo -e "## v$(cat ./version.txt) $(date '+%Y-%m-%d')"
   echo -e "
@@ -94,25 +98,6 @@ fi
 
 PREV=$(git tag -l  | tail -1)
 MODE=$(getTagMode)
-MESSAGE="" # commit message.
-while getopts t:m:h OPT
-do
-  case $OPT in
-    t) case $OPTARG in
-         "hotfix" | "minor" | "major") MODE="$OPTARG";;
-         * ) echo "$OPTARG" ;showUsage ; exit 1 ;;
-       esac ;;
-
-    m) MESSAGE=$OPTARG ;;
-    h) showUsage ;  exit 0 ;;
-    \?) showUsage ; exit 1 ;;
-  esac
-done
-
-if [ "$MODE" = "" ] || [ "$MESSAGE" = "" ]; then
-  showUsage
-  exit 1
-fi
 
 gitCheckout "master"
 
@@ -141,10 +126,9 @@ fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
 echo "tags/$PREV" "origin/master"
-log=$(createChangeLog "tags/$PREV" "origin/master")
+log=$(get)
+log=$(createChangeLogFile "tags/$PREV" "origin/master")
 echo -n "$log" > ./CHANGELOG.md
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
-gitTag "$(cat ./version.txt)" "$MESSAGE"
-
-
+gitTag "$(cat ./version.txt)"
