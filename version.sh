@@ -79,9 +79,9 @@ createChangeLog(){
   current_log=$(cat ./CHANGELOG.md)
   echo -e "## v$(cat ./version.txt) $(date '+%Y-%m-%d')"
   echo -e "
-  $log
+$log
 
-  $current_log
+$current_log
   "
 }
 
