@@ -121,7 +121,9 @@ current_log=$(getChangeLog "tags/$PREV" "origin/master")
 log=$(createChangeLogFile "tags/$PREV" "origin/master")
 if [ "$current_log" = "" ];
 then
-   echo "no changes."
+   echo "
+   no changes.
+"
    exit 1;
 fi
 echo "$major.$minor.$hotfix" | tee version.txt
