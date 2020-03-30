@@ -136,6 +136,7 @@ fi
 echo "$major.$minor.$hotfix" | tee version.txt
 echo -e "$log" > ./CHANGELOG.md
 
+
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
 gitTag "$(cat ./version.txt)"  "$(echo -e $current_log)"
