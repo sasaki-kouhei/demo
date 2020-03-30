@@ -88,7 +88,6 @@ $current_log
 }
 
 findGitDirectory
-
 PREV=$(git tag -l  | tail -1)
 MODE=$(getTagMode)
 
