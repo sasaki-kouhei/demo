@@ -73,7 +73,7 @@ getTagMode() {
 }
 
 getChangeLog(){
-  echo $(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
+  echo -e $(git log "${1}".."${2}" | egrep -v "^commit|^Date:|^Author|Merge:|Merge pull request|^\s*$" | sed  "s/^ */- /g")
 }
 
 createChangeLogFile(){
