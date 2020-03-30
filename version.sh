@@ -1,12 +1,5 @@
 #!/bin/bash
 
-showUsage(){
-  echo "
-  USAGE:$0 -t [hotfix|minar|major] -m message
-           -h help.
-  "
-}
-
 noGitDirectory(){
   echo "Can't find .git directory"
 }
@@ -132,3 +125,4 @@ echo -n "$log" > ./CHANGELOG.md
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
 gitTag "$(cat ./version.txt)"  "$(echo -e $current_log)"
+
