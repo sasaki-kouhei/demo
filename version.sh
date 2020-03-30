@@ -123,6 +123,7 @@ fi
 
 current_log=$(getChangeLog "tags/$PREV" "origin/master")
 log=$(createChangeLogFile "tags/$PREV" "origin/master")
+
 if [ "$current_log" = "" ];
 then
    echo "
@@ -130,6 +131,7 @@ then
 "
    exit 1;
 fi
+
 echo "$major.$minor.$hotfix" | tee version.txt
 echo -e "$log" > ./CHANGELOG.md
 
