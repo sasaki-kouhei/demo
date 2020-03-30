@@ -42,6 +42,7 @@ findGitDirectory(){
 
 getTagMode() {
   line=$(git log --pretty=oneline --abbrev-commit --merges -n 1)
+  echo -e "$line"
   param=$(echo $line | grep "tag")
   if [ "$param" != "" ];
   then
@@ -94,6 +95,7 @@ MODE=$(getTagMode)
 
 echo "this mode: $MODE"
 
+exit 1;
 gitCheckout "master"
 
 if [ ! -e version.txt ];then
