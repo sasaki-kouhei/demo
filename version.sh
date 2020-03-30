@@ -93,10 +93,6 @@ $current_log
 findGitDirectory
 PREV=$(git tag -l  | tail -1)
 MODE=$(getTagMode)
-
-echo "this mode: $MODE"
-
-exit 1;
 gitCheckout "master"
 
 if [ ! -e version.txt ];then
