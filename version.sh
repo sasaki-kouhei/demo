@@ -1,5 +1,12 @@
 #!/bin/bash
 
+showUsage(){
+  echo "
+  USAGE:$0 -t [hotfix|minar|major] -m message
+           -h help.
+  "
+}
+
 noGitDirectory(){
   echo "Can't find .git directory"
 }
@@ -117,11 +124,11 @@ if [ "$MODE" = hotfix ];then
   hotfix=$(expr $hotfix + 1)
 fi
 
-current_log=$(getChangeLog "tags/$PREV" "origin/master")
-log=$(createChangeLogFile "tags/$PREV" "origin/master")
 echo "$major.$minor.$hotfix" | tee version.txt
 echo "tags/$PREV" "origin/master"
+current_log=$(getChangeLog "tags/$PREV" "origin/master")
+log=$(createChangeLogFile "tags/$PREV" "origin/master")
 echo -n "$log" > ./CHANGELOG.md
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
-gitTag "$(cat ./version.txt)" "$(echo -e $current_log)"
+gitTag "$(cat ./version.txt)" "$current_log"
