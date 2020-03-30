@@ -79,7 +79,7 @@ getChangeLog(){
 createChangeLogFile(){
   log=$(getChangeLog "${1}" "${2}")
 
-  if [ $log = "" ];
+  if [ "$log" = "" ];
   then
     exit 1
   fi
