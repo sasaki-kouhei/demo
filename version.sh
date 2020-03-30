@@ -78,6 +78,12 @@ getChangeLog(){
 
 createChangeLogFile(){
   log=$(getChangeLog "${1}" "${2}")
+
+  if [ $log = "" ];
+  then
+    exit 1
+  fi
+
   current_log=$(cat ./CHANGELOG.md)
   echo -e "## v$(cat ./version.txt) $(date '+%Y-%m-%d')"
   echo -e "
@@ -119,11 +125,6 @@ fi
 echo "$major.$minor.$hotfix" | tee version.txt
 current_log=$(getChangeLog "tags/$PREV" "origin/master")
 log=$(createChangeLogFile "tags/$PREV" "origin/master")
-
-if [ $log = "" ];
-then
-  exit 1
-fi
 
 echo -e "$log" > ./CHANGELOG.md
 
