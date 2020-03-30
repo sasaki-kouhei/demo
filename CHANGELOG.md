@@ -1,6 +1,23 @@
 ## v0.82.0 2020-03-30
 
 - Merge branch 'hotfix/sample'
+- 2020年 3月30日 月曜日 18時22分59秒 JST
+- v0.82.0 release!
+- Merge branch 'hotfix/sample'
+- force commit
+- v0.82.0 release!
+- Merge branch 'dev'
+- 2020年 3月30日 月曜日 18時11分34秒 JST
+- Merge branch 'hotfix/sample'
+- 2020年 3月30日 月曜日 17時18分49秒 JST
+- Merge branch 'hotfix/sample'
+- 2020年 3月30日 月曜日 14時56分27秒 JST
+- 2020年 3月30日 月曜日 14時46分17秒 JST
+- 2020年 3月30日 月曜日 14時41分51秒 JST
+
+## v0.82.0 2020-03-30
+
+- Merge branch 'hotfix/sample'
 - force commit
 - v0.82.0 release!
 - Merge branch 'dev'
