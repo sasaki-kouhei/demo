@@ -92,6 +92,8 @@ findGitDirectory
 PREV=$(git tag -l  | tail -1)
 MODE=$(getTagMode)
 
+echo "this mode: $MODE"
+
 gitCheckout "master"
 
 if [ ! -e version.txt ];then
@@ -132,4 +134,3 @@ echo -e "$log" > ./CHANGELOG.md
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
 gitTag "$(cat ./version.txt)"  "$(echo -e $current_log)"
-
