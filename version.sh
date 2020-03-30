@@ -119,9 +119,11 @@ fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
 echo "tags/$PREV" "origin/master"
+
 current_log=$(getChangeLog "tags/$PREV" "origin/master")
 log=$(createChangeLogFile "tags/$PREV" "origin/master")
 echo -e "$log" > ./CHANGELOG.md
+
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
 gitTag "$(cat ./version.txt)"  "$(echo -e $current_log)"
