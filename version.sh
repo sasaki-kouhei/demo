@@ -44,6 +44,7 @@ getTagMode() {
   line=$(git log --pretty=oneline --abbrev-commit --merges -n 1)
   echo -e "$line"
   param=$(echo $line | grep "tag")
+
   if [ "$param" != "" ];
   then
     exit 0
