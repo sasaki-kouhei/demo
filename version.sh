@@ -117,9 +117,14 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-
 current_log=$(getChangeLog "tags/$PREV" "origin/master")
 log=$(createChangeLogFile "tags/$PREV" "origin/master")
+
+if [ $log = "" ];
+then
+  exit 1
+fi
+
 echo -e "$log" > ./CHANGELOG.md
 
 gitAdd "version.txt" "./CHANGELOG.md"
