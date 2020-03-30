@@ -33,6 +33,11 @@ findGitDirectory(){
     fi
     COUNT=$(expr $COUNT + 1)
   done
+
+  if [ ! -e ".git" ]; then
+    noGitDirectory
+    exit 1
+  fi
 }
 
 getTagMode() {
@@ -83,11 +88,6 @@ $current_log
 }
 
 findGitDirectory
-
-if [ ! -e ".git" ]; then
-  noGitDirectory
-  exit 1
-fi
 
 PREV=$(git tag -l  | tail -1)
 MODE=$(getTagMode)
