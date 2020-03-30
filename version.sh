@@ -65,7 +65,7 @@ getTagMode() {
   fi
 
   param=$(echo $line | grep "hotfix")
-  if [ "$param" != "hotfix" ];
+  if [ "$param" != "" ];
   then
     echo "hotfix"
     return
@@ -102,18 +102,18 @@ major=$(cat version.txt | cut -d '.' -f 1)
 minor=$(cat version.txt | cut -d '.' -f 2)
 hotfix=$(cat version.txt | cut -d '.' -f 3)
 
-if [ "$MODE" = major ];then
+if [ "$MODE" = "major" ];then
   major=$(expr $major + 1)
   minor=0
   hotfix=0
 fi
 
-if [ "$MODE" = minor ];then
+if [ "$MODE" = "minor" ];then
   minor=$(expr $minor + 1)
   hotfix=0
 fi
 
-if [ "$MODE" = hotfix ];then
+if [ "$MODE" = "hotfix" ];then
   hotfix=$(expr $hotfix + 1)
 fi
 
@@ -131,7 +131,9 @@ fi
 echo "$major.$minor.$hotfix" | tee version.txt
 echo -e "$log" > ./CHANGELOG.md
 
+echo $MODE
 
+exit 1
 gitAdd "version.txt" "./CHANGELOG.md"
 gitCommit "v$(cat ./version.txt) release!"
 gitTag "$(cat ./version.txt)"  "$(echo -e $current_log)"
