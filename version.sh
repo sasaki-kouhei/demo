@@ -84,7 +84,7 @@ createChangeLogFile(){
 $log
 
 $current_log
-  "
+"
 }
 
 findGitDirectory
