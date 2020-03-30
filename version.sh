@@ -118,7 +118,6 @@ if [ "$MODE" = hotfix ];then
 fi
 
 echo "$major.$minor.$hotfix" | tee version.txt
-echo "tags/$PREV" "origin/master"
 
 current_log=$(getChangeLog "tags/$PREV" "origin/master")
 log=$(createChangeLogFile "tags/$PREV" "origin/master")
