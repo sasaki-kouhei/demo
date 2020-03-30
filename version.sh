@@ -70,7 +70,6 @@ getTagMode() {
     echo "hotfix"
     return
   fi
-  
   echo "hotfix"
 }
 
